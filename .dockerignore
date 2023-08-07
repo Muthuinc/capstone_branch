@@ -1,0 +1,10 @@
+docker-compose.yml
+Jenkinsfile
+.git
+build.sh
+create/*
+deploy/*
+push/*
+monitor/*
+docker-compose1.yml
+.gitattributes
