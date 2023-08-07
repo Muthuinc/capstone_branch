@@ -30,7 +30,7 @@ resource "aws_security_group" "dev" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = ["157.49.130.3/32"]
+    cidr_blocks      = ["42.111.160.13/32"]
   }
    ingress {
     description      = "TLS from VPC"
