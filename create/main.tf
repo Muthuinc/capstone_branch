@@ -20,8 +20,8 @@ provider "aws" {
 # so we don't have to specify any vpc or subnet. 
 # terraform will automatically create the instance in the default unless specified
 
-resource "aws_security_group" "dev" {
-  name        = "dev"
+resource "aws_security_group" "prod" {
+  name        = "prod"
   description = "Allow TLS inbound traffic"
   vpc_id      = "vpc-0acc23cf8265dbf18"
 
@@ -49,13 +49,13 @@ resource "aws_security_group" "dev" {
   
    ingress {
     description      = "TLS from VPC"
-    from_port        = 9090
-    to_port          = 9090
+    from_port        = 9100
+    to_port          = 9100
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
   
-   ingress {
+  ingress {
     description      = "TLS from VPC"
     from_port        = 9115
     to_port          = 9115
@@ -63,10 +63,10 @@ resource "aws_security_group" "dev" {
     cidr_blocks      = ["0.0.0.0/0"]
   }
   
-   ingress {
+  ingress {
     description      = "TLS from VPC"
-    from_port        = 9100
-    to_port          = 9100
+    from_port        = 9090
+    to_port          = 9090
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
@@ -80,7 +80,7 @@ resource "aws_security_group" "dev" {
   }
 
   tags = {
-    Name = "dev_security"
+    Name = "Prod_security"
   }
 }
 
@@ -89,9 +89,8 @@ resource "aws_instance" "instance1" {
   instance_type           = "t2.micro"
   key_name                = "Avam"
   associate_public_ip_address = true
-  vpc_security_group_ids = [ aws_security_group.dev.id ]
+  vpc_security_group_ids = [ aws_security_group.prod.id ]
   tags = {
-    
-    Env = "dev"
+    Env = "prod"
   }
 }

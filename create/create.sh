@@ -7,7 +7,8 @@ echo " success"
 
 sleep 5
 
-a=$(aws ec2 describe-instances --region ap-south-1 --filters "Name=tag:Env,Values=dev" --query 'Reservations[].Instances[].PublicIpAddress' --output text)
+
+a=$(aws ec2 describe-instances --region ap-south-1 --filters "Name=tag:Env,Values=prod" --query 'Reservations[].Instances[].PublicIpAddress' --output text)
 
 echo "$a"
 
@@ -19,7 +20,11 @@ sudo apt update -y
 
 sudo apt install -y docker.io
 
-sudo apt install -y docker-compose
+sudo apt install curl -y
+
+sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
 
 
 EOF
